@@ -36,6 +36,81 @@ Several preprocessing considerations should be taken into account when working w
 
 1. Image Size: The images in the dataset do not have the same size, and cropping them may result in missing the target cells. Resizing the images may alter their features and make them less readable, so careful handling is necessary.
 
+## Methodology
+
+The code provided implements a deep learning pipeline for image classification using pre-trained models. The pipeline consists of the following steps:
+
+1. Setting seeds: The `set_seeds` function sets the random seeds to ensure reproducibility of the results.
+
+2. CustomDataset class: This class is used to create a custom dataset for loading and preprocessing the image data. It takes the image directory, labels file, and optional transformations as inputs. The class provides methods to retrieve the length of the dataset and individual data items.
+
+3. Device setup: The code checks if a GPU is available and sets the device accordingly.
+
+4. Data preparation:
+    - Loading labeled dataset: The labeled dataset is loaded from a CSV file containing image labels.
+    - Finding maximum size: The maximum width and height of the images in the dataset are determined.
+    - Data transformation: Two main data transformation pipelines are defined:
+        - `main_transform`: Resizes the images to the maximum width and height, converts them to tensors, and applies normalization.
+        - `augmentation_transform`: Includes resizing, random flips, rotation, color jitter, and normalization for data augmentation.
+    - Dataset creation: The main dataset and augmented dataset are created using the `CustomDataset` class and the respective transformation pipelines.
+    - Combining datasets: The main dataset and augmented dataset are combined using the `ConcatDataset` class.
+    - Stratified k-fold cross-validation: The combined dataset is split into train and validation sets using stratified k-fold cross-validation.
+
+5. Model setup:
+    - Pre-trained model loading: Several pre-trained models from the torchvision library are loaded, including ResNet50, EfficientNetV2, Inception V3, and GoogLeNet.
+    - Model adaptation: The last fully connected layers (classifiers) of each model are replaced with new linear layers to match the number of classes in the current task.
+    - Model device placement: The models are moved to the specified device (GPU if available).
+
+6. Training loop:
+    - Loss function and optimizer: The cross-entropy loss and Adam optimizer are defined for each model.
+    - Training phase: The training loop iterates over the specified number of epochs and performs the following steps for each model:
+        - Sets the model to train mode and initializes the running loss.
+        - Iterates over the training dataloader and performs the following steps for each batch:
+            - Moves the images and labels to the specified device.
+            - Clears the gradients from the previous iteration.
+            - Performs a forward pass through the model to get the outputs.
+            - Computes the loss by comparing the outputs with the ground truth labels.
+            - Performs backpropagation to compute the gradients.
+            - Updates the model parameters based on the gradients using the optimizer.
+            - Accumulates the running loss.
+        - Calculates the average loss for the epoch and prints it.
+
+7. Evaluation:
+    - Validation phase: After each training epoch, the models are evaluated on the validation set.
+    - Evaluation metrics: Various evaluation metrics such as accuracy, F1 score, and recall are calculated using the predictions and true labels.
+    - Best model selection: The model with the best validation loss, F1 score, and accuracy is selected and saved.
+
+8. Model testing: The selected best model is used to make predictions on the test set.
+
+## Equations and Formulas
+
+1. Class weights calculation:
+   - Formula: `class_weights = 1.0 / torch.tensor(np.bincount(stacked_labels[train_index]))`
+   - Description: Compute the class weights by taking the reciprocal of the counts of each class in the training set. This gives more weight to underrepresented classes and less weight to overrepresented classes.
+
+2. Cross-Entropy Loss:
+   - Formula: ![Cross-Entropy Loss](https://latex.codecogs.com/png.latex?%5Ctext%7BCrossEntropyLoss%7D%28%5Cmathbf%7Bp%7D%2C%20%5Cmathbf%7Bq%7D%29%20%3D%20-%20%5Csum_i%20p_i%20%5Clog%20q_i)
+   - Description: The cross-entropy loss measures the dissimilarity between the predicted probability distribution (q) and the true probability distribution (p) of the classes. It is commonly used as a loss function in multi-class classification problems. The formula sums over all classes (i) and calculates the negative log-likelihood of the true class probabilities predicted by the model.
+
+3. Adam Optimizer:
+   - Formula for parameter update:
+     ![Adam Optimizer Update](https://latex.codecogs.com/png.latex?%5Ctheta_%7Bt&plus;1%7D%20%3D%20%5Ctheta_t%20-%20%5Cfrac%7B%5Ctext%7BLearningRate%7D%7D%7B%5Csqrt%7B%5Chat%7Bv%7D_t%7D%20&plus;%20%5Cepsilon%7D%20%5Codot%20%5Chat%7Bm%7D_t)
+   - Description: The Adam optimizer is an adaptive learning rate optimization algorithm commonly used in deep learning. It computes individual learning rates for different parameters by estimating first and second moments of the gradients. The formula calculates the updated parameter values (θ) based on the previous parameter values (θt), the learning rate (LearningRate), the estimated first moment of the gradient (m), the estimated second moment of the gradient (v), and a small epsilon value for numerical stability.
+
+4. Accuracy:
+   - Formula: ![Accuracy](https://latex.codecogs.com/png.latex?%5Ctext%7BAccuracy%7D%20%3D%20%5Cfrac%7B%5Ctext%7BNumber%20of%20correct%20predictions%7D%7D%7B%5Ctext%7BTotal%20number%20of%20predictions%7D%7D)
+   - Description: Accuracy is a common evaluation metric used in classification tasks. It measures the percentage of correct predictions out of the total number of predictions made by the model.
+
+5. F1 Score:
+   - Formula: ![F1 Score](https://latex.codecogs.com/png.latex?%5Ctext%7BF1%20Score%7D%20%3D%20%5Cfrac%7B2%20%5Ctimes%20%5Ctext%7BPrecision%7D%20%5Ctimes%20%5Ctext%7BRecall%7D%7D%7B%5Ctext%7BPrecision%7D%20&plus;%20%5Ctext%7BRecall%7D%7D)
+   - Description: The F1 score is the harmonic mean of precision and recall. It is a single metric that combines both precision (the ability of the model to correctly predict positive samples) and recall (the ability of the model to find all positive samples). The F1 score is commonly used when there is an imbalance between the number of positive and negative samples in the dataset.
+
+6. Recall (Sensitivity):
+   - Formula: ![Recall](https://latex.codecogs.com/png.latex?%5Ctext%7BRecall%7D%20%3D%20%5Cfrac%7B%5Ctext%7BTrue%20Positives%7D%7D%7B%5Ctext%7BTrue%20Positives%7D%20&plus;%20%5Ctext%7BFalse%20Negatives%7D%7D)
+   - Description: Recall, also known as sensitivity or true positive rate, measures the proportion of actual positive samples that are correctly identified by the model. It is a useful metric when the goal is to minimize false negatives.
+
+These are just a few examples of commonly used mathematical notations and formulas in machine learning. There are many other concepts and equations used in various algorithms and models depending on the specific task at hand.
+
 ## Implementation Details
 The code provided here is a Python implementation for the Carcinoma Classification competition. The code utilizes the PyTorch library for deep learning tasks. Here is an overview of the key components of the code:
 
