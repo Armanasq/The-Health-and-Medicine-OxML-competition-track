@@ -3,7 +3,7 @@
 
 ## Advanced Cancer Classification Repository
 ## The Health and Medicine OxML 2023 competition track
-This repository contains code for a sophisticated and advanced cancer classification model. The model utilizes state-of-the-art deep learning architectures, including ResNet-50, EfficientNet-V2, Inception-V3, and GoogLeNet, to classify images of skin lesions into three classes: benign, malignant, and unknown.
+This repository contains code for a sophisticated and advanced cancer classification model. The model utilizes state-of-the-art deep learning architectures, including ResNet-50, EfficientNet-V2, Inception-V3, and GoogLeNet, to classify images of skin lesions into three classes: benign, malignant, and normal.
 
 ## Table of Contents
 
