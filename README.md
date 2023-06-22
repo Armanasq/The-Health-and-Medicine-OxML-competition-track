@@ -89,7 +89,8 @@ The code provided implements a deep learning pipeline for image classification u
    - Description: Compute the class weights by taking the reciprocal of the counts of each class in the training set. This gives more weight to underrepresented classes and less weight to overrepresented classes.
 
 2. Cross-Entropy Loss:
-   - Formula: ![Cross-Entropy Loss](https://latex.codecogs.com/png.latex?%5Ctext%7BCrossEntropyLoss%7D%28%5Cmathbf%7Bp%7D%2C%20%5Cmathbf%7Bq%7D%29%20%3D%20-%20%5Csum_i%20p_i%20%5Clog%20q_i)
+   - Formula: ![Cross-Entropy Loss](https://latex.codecogs.com/png.latex?%5Cbg_white%20%5Ctext%7BCrossEntropyLoss%7D%28%5Cmathbf%7Bp%7D%2C%20%5Cmathbf%7Bq%7D%29%20%3D%20-%20%5Csum_i%20p_i%20%5Clog%20q_i)
+
    - Description: The cross-entropy loss measures the dissimilarity between the predicted probability distribution (q) and the true probability distribution (p) of the classes. It is commonly used as a loss function in multi-class classification problems. The formula sums over all classes (i) and calculates the negative log-likelihood of the true class probabilities predicted by the model.
 
 3. Adam Optimizer:
