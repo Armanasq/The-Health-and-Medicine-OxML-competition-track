@@ -89,25 +89,29 @@ The code provided implements a deep learning pipeline for image classification u
    - Description: Compute the class weights by taking the reciprocal of the counts of each class in the training set. This gives more weight to underrepresented classes and less weight to overrepresented classes.
 
 2. Cross-Entropy Loss:
-   - Formula: ![Cross-Entropy Loss](https://latex.codecogs.com/png.latex?%5Cbg_white%20%5Ctext%7BCrossEntropyLoss%7D%28%5Cmathbf%7Bp%7D%2C%20%5Cmathbf%7Bq%7D%29%20%3D%20-%20%5Csum_i%20p_i%20%5Clog%20q_i)
+   - Formula:
+     ![Cross-Entropy Loss](https://latex.codecogs.com/png.latex?%5Cbg_white%20%5Ctext%7BCrossEntropyLoss%7D%28%5Cmathbf%7Bp%7D%2C%20%5Cmathbf%7Bq%7D%29%20%3D%20-%20%5Csum_i%20p_i%20%5Clog%20q_i)
 
    - Description: The cross-entropy loss measures the dissimilarity between the predicted probability distribution (q) and the true probability distribution (p) of the classes. It is commonly used as a loss function in multi-class classification problems. The formula sums over all classes (i) and calculates the negative log-likelihood of the true class probabilities predicted by the model.
 
 3. Adam Optimizer:
    - Formula for parameter update:
-     ![Adam Optimizer Update](https://latex.codecogs.com/png.latex?%5Ctheta_%7Bt&plus;1%7D%20%3D%20%5Ctheta_t%20-%20%5Cfrac%7B%5Ctext%7BLearningRate%7D%7D%7B%5Csqrt%7B%5Chat%7Bv%7D_t%7D%20&plus;%20%5Cepsilon%7D%20%5Codot%20%5Chat%7Bm%7D_t)
+![Adam Optimizer Update](https://latex.codecogs.com/png.latex?%5Cbg_white%20%5Ctheta_%7Bt&plus;1%7D%20%3D%20%5Ctheta_t%20-%20%5Cfrac%7B%5Ctext%7BLearningRate%7D%7D%7B%5Csqrt%7B%5Chat%7Bv%7D_t%7D%20%2B%20%5Cepsilon%7D%20%5Codot%20%5Chat%7Bm%7D_t)
    - Description: The Adam optimizer is an adaptive learning rate optimization algorithm commonly used in deep learning. It computes individual learning rates for different parameters by estimating first and second moments of the gradients. The formula calculates the updated parameter values (θ) based on the previous parameter values (θt), the learning rate (LearningRate), the estimated first moment of the gradient (m), the estimated second moment of the gradient (v), and a small epsilon value for numerical stability.
 
 4. Accuracy:
-   - Formula: ![Accuracy](https://latex.codecogs.com/png.latex?%5Ctext%7BAccuracy%7D%20%3D%20%5Cfrac%7B%5Ctext%7BNumber%20of%20correct%20predictions%7D%7D%7B%5Ctext%7BTotal%20number%20of%20predictions%7D%7D)
+   - Formula: 
+   ![Accuracy](https://latex.codecogs.com/png.latex?%5Cbg_white%20%5Ctext%7BAccuracy%7D%20%3D%20%5Cfrac%7B%5Ctext%7BNumber%20of%20correct%20predictions%7D%7D%7B%5Ctext%7BTotal%20number%20of%20predictions%7D%7D)
    - Description: Accuracy is a common evaluation metric used in classification tasks. It measures the percentage of correct predictions out of the total number of predictions made by the model.
 
 5. F1 Score:
-   - Formula: ![F1 Score](https://latex.codecogs.com/png.latex?%5Ctext%7BF1%20Score%7D%20%3D%20%5Cfrac%7B2%20%5Ctimes%20%5Ctext%7BPrecision%7D%20%5Ctimes%20%5Ctext%7BRecall%7D%7D%7B%5Ctext%7BPrecision%7D%20&plus;%20%5Ctext%7BRecall%7D%7D)
+   - Formula:
+     ![F1 Score](https://latex.codecogs.com/png.latex?%5Cbg_white%20%5Ctext%7BF1%20Score%7D%20%3D%20%5Cfrac%7B2%20%5Ctimes%20%5Ctext%7BPrecision%7D%20%5Ctimes%20%5Ctext%7BRecall%7D%7D%7B%5Ctext%7BPrecision%7D%20%2B%20%5Ctext%7BRecall%7D%7D)
    - Description: The F1 score is the harmonic mean of precision and recall. It is a single metric that combines both precision (the ability of the model to correctly predict positive samples) and recall (the ability of the model to find all positive samples). The F1 score is commonly used when there is an imbalance between the number of positive and negative samples in the dataset.
 
 6. Recall (Sensitivity):
-   - Formula: ![Recall](https://latex.codecogs.com/png.latex?%5Ctext%7BRecall%7D%20%3D%20%5Cfrac%7B%5Ctext%7BTrue%20Positives%7D%7D%7B%5Ctext%7BTrue%20Positives%7D%20&plus;%20%5Ctext%7BFalse%20Negatives%7D%7D)
+   - Formula:
+   ![Recall](https://latex.codecogs.com/png.latex?%5Cbg_white%20%5Ctext%7BRecall%7D%20%3D%20%5Cfrac%7B%5Ctext%7BTrue%20Positives%7D%7D%7B%5Ctext%7BTrue%20Positives%7D%20%2B%20%5Ctext%7BFalse%20Negatives%7D%7D)
    - Description: Recall, also known as sensitivity or true positive rate, measures the proportion of actual positive samples that are correctly identified by the model. It is a useful metric when the goal is to minimize false negatives.
 
 These are just a few examples of commonly used mathematical notations and formulas in machine learning. There are many other concepts and equations used in various algorithms and models depending on the specific task at hand.
