@@ -7,13 +7,32 @@ This repository contains code for a sophisticated and advanced cancer classifica
 
 ## Table of Contents
 
-- [Introduction](#introduction)
-- [Dataset](#dataset)
-- [Data Preprocessing](#data-preprocessing)
-- [Model Architecture](#model-architecture)
-- [Training](#training)
-- [Evaluation](#evaluation)
-- [Conclusion](#conclusion)
+
+- [Carcinoma Classification - OxML 2023 Cases](#carcinoma-classification---oxml-2023-cases)
+  - [Advanced Cancer Classification Repository](#advanced-cancer-classification-repository)
+  - [The-Health-and-Medicine-OxML-competition-track](#the-health-and-medicine-oxml-competition-track)
+  - [Table of Contents](#table-of-contents)
+  - [Introduction](#introduction)
+  - [Dataset](#dataset)
+  - [Approach](#approach)
+  - [Preprocessing](#preprocessing)
+  - [Methodology](#methodology)
+  - [Equations and Formulas](#equations-and-formulas)
+  - [Implementation Details](#implementation-details)
+    - [Dataset and Data Augmentation](#dataset-and-data-augmentation)
+    - [Model Selection and Training](#model-selection-and-training)
+    - [Cross-Validation](#cross-validation)
+    - [Model Evaluation and Predictions](#model-evaluation-and-predictions)
+  - [Data Preprocessing](#data-preprocessing)
+  - [Model Architecture](#model-architecture)
+  - [Training](#training)
+    - [Loss Function:](#loss-function)
+    - [Optimization Algorithm:](#optimization-algorithm)
+    - [Model Ensemble:](#model-ensemble)
+    - [Evaluation Metrics:](#evaluation-metrics)
+  - [Evaluation](#evaluation)
+  - [Conclusion](#conclusion)
+
 
 ## Introduction
 
